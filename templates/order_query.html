@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>微信安全支付</title>
+</head>
+<body>
+	</br></br>
+	<div align="center">
+		{{order_data}}
+		<form  action="./order_query.php" method="post">
+			<p>订单查询</p>
+			<p>单号: <input type="text" name="out_trade_no" value="{{out_trade_no}}"></p>
+		    <button type="submit" >提交</button>
+		</form>
+		</br>
+
+		<a href="../index.php">返回首页</a>
+
+	</div>
+</body>
+</html>
