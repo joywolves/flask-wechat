@@ -45,7 +45,7 @@ wxpay_php <br/>
 |-- WxPayHelper--------------------微信支付类库及常用文件 <br/>
 |   |-- SDKRuntimeException.php----异常处理类 <br/>
 |   |-- WxPay.pub.config.php-----------商户配置文件 <br/>
-|   `-- WxPayPubHelper.php------------微信支付类库 <br/>
+|   \`-- WxPayPubHelper.php------------微信支付类库 <br/>
 |-- demo---------------------------例程 <br/>
 |   |-- js_api_call.php------------JSAPI支付例程 <br/>
 |   |-- native_call_qrcode.php-----native支付静态链接二维码例程 <br/>
@@ -59,8 +59,8 @@ wxpay_php <br/>
 |   |-- download_bill.php----------对账单例程 <br/>
 |   |-- refund_query.php-----------退款查询例程 <br/>
 |   |-- log_.php-------------------日志类 <br/>
-|   `-- qrcode.js------------------二维码生成工具 <br/>
-`-- index.php <br/>
+|   \`-- qrcode.js------------------二维码生成工具 <br/>
+\`-- index.php <br/>
  <br/>
 ============== <br/>
 微信支付帮助sdk <br/>
