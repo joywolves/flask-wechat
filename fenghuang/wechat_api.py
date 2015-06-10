@@ -1,22 +1,15 @@
 # coding=utf8
 
 """
-auth 	: luanhailiang
-email	: hi@luanhailiang.cn
-date 	: 2015-6-9
+	auth 	: luanhailiang
+	email	: hi@luanhailiang.cn
+	date 	: 2015-6-9
 """
 
-import logging
+from fenghuang import app
+
 from models.WxPayPubHelper.WxPayPubHelper import *
 from flask import Flask, render_template, request, abort, redirect, url_for
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-	app.logger.info("【接收到的notify通知】22")
-	app.logger.warning("【接收到的notify通知】11")
-	return render_template('index.html')
 
 @app.route('/js_api_call')
 def js_api_call():
@@ -76,7 +69,7 @@ def js_api_call():
 	return render_template('js_api_call.html',jsApiParameters=jsApiParameters)
 
 
-@app.route('/order_query')
+@app.route('/order_query',methods=['GET', 'POST'])
 def order_query():
 	#退款的订单号
 	order_data = ""
@@ -172,7 +165,7 @@ def notify_url():
 	returnXml = notify.returnXml()
 	return returnXml
 
-@app.route('/download_bill')
+@app.route('/download_bill',methods=['GET', 'POST'])
 def download_bill():
 	#对账单日期
 	if not request.form.get("bill_date"):
@@ -197,10 +190,10 @@ def download_bill():
 	#对账单接口结果
 	downloadBillResult = downloadBill.getResult()
 
-	bill_list = downloadBillResult['return_code']
+	bill_list = ""
 
 	if downloadBillResult['return_code'] == "FAIL":
-		bill_list += "通信出错："+downloadBillResult['return_msg']
+		bill_list += "通信出错:"+downloadBillResult['return_msg']
 	else:
 		bill_list += '<pre>'
 		bill_list += "【对账单详情】"+"</br>"
@@ -210,13 +203,3 @@ def download_bill():
 
 
 
-if __name__ == '__main__':
-	app.debug = True
-	file_handler = logging.FileHandler('log');
-	file_handler.setLevel(logging.WARNING)
-	file_handler.setFormatter(logging.Formatter(
-		'%(asctime)s %(levelname)s:\n %(message)s \n'
-		'[in %(pathname)s:%(lineno)d]\n\n'
-	))
-	app.logger.addHandler(file_handler)
-	app.run(host='0.0.0.0')

@@ -71,7 +71,7 @@ class Common_util_pub:
 		str =""
 		for i in range(length) :
 			index = random.randint(0, len(chars)-1)
-			str += chars[index,index+1] 
+			str += chars[index:index+1] 
 		return str
 
 	# 	作用：格式化参数，签名过程需要使用
@@ -95,11 +95,11 @@ class Common_util_pub:
 		for k,v in Obj.items():
 			Parameters[k] = v
 		#签名步骤一：按字典序排序参数
-		String = formatBizQueryParaMap(Parameters, False)
-		#print '【string1】'+String+'</br>'
+		String = Common_util_pub.formatBizQueryParaMap(Parameters, False)
+		# print String+"\n"
 		#签名步骤二：在string后加入KEY
 		String = String+"&key="+WxPayConf_pub.KEY
-		#print "【string2】"+String+"</br>"
+		# print String+"\n"
 		#签名步骤三：MD5加密
 		m = hashlib.md5()   
 		m.update(String)
@@ -115,7 +115,7 @@ class Common_util_pub:
 	def arrayToXml(arr):
 		xml = "<xml>"
 		for key,val in arr.items():
-			if val.isnumeric():
+			if val.isdigit():
 				xml +="<"+key+">"+val+"</"+key+">" 
 			else:
 				xml +="<"+key+"><![CDATA["+val+"]]></"+key+">"  
@@ -127,11 +127,15 @@ class Common_util_pub:
 	def xmlToArray(xml):
 		#将XML转为array     
 		array_data = xmltodict.parse(xml)   
-		return array_data
+		data = {}
+		for k,v in array_data['xml'].items():
+			data[k] = v
+		return data
 
 	# 	作用：以post方式提交xml到对应的接口url
 	@staticmethod
 	def postXmlCurl(xml,url,second=30):	
+		print xml
 		buf = cStringIO.StringIO()
 		#初始化curl        
 		ch = pycurl.Curl()
@@ -218,10 +222,10 @@ class Common_util_pub:
 class Wxpay_client_pub(Common_util_pub ):
 	def __init__(self):
 		self.parameters={}#请求参数，类型为关联数组
-		self.response#微信返回的响应
-		self.result#返回参数，类型为关联数组
-		self.url#接口链接
-		self.curl_timeout#curl超时时间
+		# self.response=None#微信返回的响应
+		# self.result=None#返回参数，类型为关联数组
+		# self.url=None#接口链接
+		# self.curl_timeout=None#curl超时时间
 	
 	# 	作用：设置请求参数
 	def setParameter(self, parameter, parameterValue):
@@ -258,6 +262,7 @@ class Wxpay_client_pub(Common_util_pub ):
 class UnifiedOrder_pub (Wxpay_client_pub) :
 
 	def __init__(self) :
+		Wxpay_client_pub.__init__(self)
 		#设置接口链接
 		self.url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
 		#设置curl超时时间
@@ -301,6 +306,7 @@ class UnifiedOrder_pub (Wxpay_client_pub) :
 
 class OrderQuery_pub (Wxpay_client_pub) :
 	def __init__(self) :
+		Wxpay_client_pub.__init__(self)
 		#设置接口链接
 		self.url = "https://api.mch.weixin.qq.com/pay/orderquery"
 		#设置curl超时时间
@@ -323,6 +329,7 @@ class OrderQuery_pub (Wxpay_client_pub) :
 # 退款申请接口
 class Refund_pub (Wxpay_client_pub) :
 	def __init__(self) :
+		Wxpay_client_pub.__init__(self)
 		#设置接口链接
 		self.url = "https://api.mch.weixin.qq.com/secapi/pay/refund"
 		#设置curl超时时间
@@ -362,6 +369,7 @@ class Refund_pub (Wxpay_client_pub) :
 class RefundQuery_pub (Wxpay_client_pub) :
 	
 	def __init__(self) :
+		Wxpay_client_pub.__init__(self)
 		#设置接口链接
 		self.url = "https://api.mch.weixin.qq.com/pay/refundquery"
 		#设置curl超时时间
@@ -391,6 +399,7 @@ class RefundQuery_pub (Wxpay_client_pub) :
 class DownloadBill_pub (Wxpay_client_pub) :
 
 	def __init__(self) :
+		Wxpay_client_pub.__init__(self)
 		#设置接口链接
 		self.url = "https://api.mch.weixin.qq.com/pay/downloadbill"
 		#设置curl超时时间
@@ -403,7 +412,7 @@ class DownloadBill_pub (Wxpay_client_pub) :
 				raise SDKRuntimeException("对账单接口中，缺少必填参数bill_date！"+"<br>")
 			self.parameters["appid"] = WxPayConf_pub.APPID#公众账号ID
 			self.parameters["mch_id"] = WxPayConf_pub.MCHID#商户号
-			self.parameters["nonce_str"] = self.createNoncestr()#随机字符串
+			self.parameters["nonce_str"] = "luanhailiang"#self.createNoncestr()#随机字符串
 			self.parameters["sign"] = self.getSign(self.parameters)#签名
 			return  self.arrayToXml(self.parameters)
 		except SDKRuntimeException as e:
@@ -412,7 +421,7 @@ class DownloadBill_pub (Wxpay_client_pub) :
 	# 	作用：获取结果，默认不使用证书
 	def getResult(self) :
 		self.postXml()
-		self.result = self.xmlToArray(self.result_xml)
+		self.result = self.xmlToArray(self.response)
 		return self.result
 	
 
@@ -420,6 +429,7 @@ class DownloadBill_pub (Wxpay_client_pub) :
 class ShortUrl_pub (Wxpay_client_pub) :
 
 	def __init__(self) :
+		Wxpay_client_pub.__init__(self)
 		#设置接口链接
 		self.url = "https://api.mch.weixin.qq.com/tools/shorturl"
 		#设置curl超时时间
@@ -449,7 +459,7 @@ class ShortUrl_pub (Wxpay_client_pub) :
 class Wxpay_server_pub (Common_util_pub)  :
 
 	def __init__(self) :
-		self.data#接收到的数据，类型为关联数组
+		self.data=None#接收到的数据，类型为关联数组
 		self.returnParameters={}#返回参数，类型为关联数组
 	
 	# 将微信的请求xml转换成关联数组，以方便数据处理
