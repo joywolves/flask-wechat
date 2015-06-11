@@ -38,30 +38,7 @@ native支付中，用户扫码后调微信会将productid和用户openid发送�
 本例程通过curl使用HTTP POST方法，此处可修改其超时时间，默认为30秒。找到本例程的配置文件「WxPay.pub.config.php」，配置curl超时时间。 <br/>
  <br/>
 ============ <br/>
-代码文件结构 <br/>
-=========================================== <br/>
-wxpay_php <br/>
-|-- README.txt---------------------使用说明文本 <br/>
-|-- WxPayHelper--------------------微信支付类库及常用文件 <br/>
-|   |-- SDKRuntimeException.php----异常处理类 <br/>
-|   |-- WxPay.pub.config.php-----------商户配置文件 <br/>
-|   \`-- WxPayPubHelper.php------------微信支付类库 <br/>
-|-- demo---------------------------例程 <br/>
-|   |-- js_api_call.php------------JSAPI支付例程 <br/>
-|   |-- native_call_qrcode.php-----native支付静态链接二维码例程 <br/>
-|   |-- native_call.php------------native支付后台响应例程 <br/>
-|   |-- native_call.log------------native支付后台响应日志 <br/>
-|   |-- native_dynamic_qrcode.php--native支付动态链接二维码例程 <br/>
-|   |-- notify_url.php-------------支付结果异步通知例程 <br/>
-|   |-- notify_url.log-------------支付结果异步通知日志 <br/>
-|   |-- order_query.php------------订单查询例程 <br/>
-|   |-- refund.php-----------------退款例程 <br/>
-|   |-- download_bill.php----------对账单例程 <br/>
-|   |-- refund_query.php-----------退款查询例程 <br/>
-|   |-- log_.php-------------------日志类 <br/>
-|   \`-- qrcode.js------------------二维码生成工具 <br/>
-\`-- index.php <br/>
- <br/>
+
 ============== <br/>
 微信支付帮助sdk <br/>
 ==================================================== <br/>
