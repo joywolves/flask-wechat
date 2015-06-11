@@ -29,3 +29,4 @@ class WxPayConf_pub:
 	#=======【curl超时设置】===================================
 	#本例程通过curl使用HTTP POST方法，此处可修改其超时时间，默认为30秒
 	CURL_TIMEOUT = 30
+
