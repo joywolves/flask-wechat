@@ -8,6 +8,7 @@ date 	: 2015-6-9
 
 import httplib  
 from urllib import quote
+from SendSMSConf import SendSMSConf
 
 class Singleton(type):  
 	def __init__(cls, name, bases, dict):  
@@ -24,12 +25,12 @@ class SendSMS(object):
 	__metaclass__ = Singleton  
 
 	def __init__(self):
-		self.cpId = "1"
-		self.cpPwd = "1"
-		self.server = "221.122.112.136:8080"
+		self.cpId = SendSMSConf.CPID
+		self.cpPwd = SendSMSConf.CPPWD
+		self.server = SendSMSConf.SERVER
 
 	def send(self, phone, msg):
-		msg = "您本次验证码为：%s【七星集团】" % msg
+		# msg = "您本次验证码为：%s【七星集团】" % msg
 		msg = msg.decode("UTF-8").encode("GBK")
 		msg = quote(msg)
 		conn = httplib.HTTPConnection(self.server)  
@@ -40,5 +41,5 @@ class SendSMS(object):
 		conn.close()
 		return data 
 
-# print SendSMS().send("18660052815","123456").decode("GBK").encode("utf8")
+
 
