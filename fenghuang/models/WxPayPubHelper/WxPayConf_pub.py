@@ -15,7 +15,7 @@ class WxPayConf_pub:
 	
 	#=======【JSAPI路径设置】===================================
 	#获取access_token过程中的跳转uri，通过跳转将code传入jsapi支付页面
-	JS_API_CALL_URL = 'http://192.168.52.217:5000/js_api_call'
+	JS_API_CALL_URL = 'http://fhzb.luanhailiang.cn:5000/js_api_call'
 	
 	#=======【证书路径设置】=====================================
 	#证书路径,注意应该填写绝对路径
@@ -24,7 +24,7 @@ class WxPayConf_pub:
 	
 	#=======【异步通知url设置】===================================
 	#异步通知url，商户根据实际开发过程设定
-	NOTIFY_URL = 'http://192.168.52.217:5000/notify_url'
+	NOTIFY_URL = 'http://fhzb.luanhailiang.cn:5000/notify_url'
 
 	#=======【curl超时设置】===================================
 	#本例程通过curl使用HTTP POST方法，此处可修改其超时时间，默认为30秒
