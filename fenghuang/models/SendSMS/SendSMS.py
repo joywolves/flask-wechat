@@ -41,5 +41,20 @@ class SendSMS(object):
 		conn.close()
 		return data 
 
+	def send_change_pwd(phone):
+		msg = "您的交易密码已成功设置，请注意保管！【凤金所】"
+		return self.send(phone,msg)
 
+	def send_check_card(phone,name):
+		msg = "[%s]会员您好！您的银行卡审核已经通过。凤金所欢迎您的访问【凤金所】" % (name)
+		return self.send(phone,msg)
+	
+	def send_check_require(phone,num,name,bank,account):
+		msg = "请您向以下帐号打款[%s]元钱，以完成银行卡的认证，收款方：[%s]，开户行：[%s]，帐号：[%s]【凤金所】" % (num,name,bank,account)
+	
+	def send_sign_notify(phone,name):
+		msg = "您的注册已成功，恭喜您成为凤金所会员，用户名是[*]，继续认证流程可获的凤凰币哦！【凤金所】" % (name)
 
+	def send_check_code(phone,code):
+		msg = "您好，您的注册验证码为：[%s]，请不要把验证码泄露给其他人。如非本人操作，可不用理会！【凤金所】" % (code)
+	

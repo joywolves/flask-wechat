@@ -1,3 +1,4 @@
 *.pyc
 *WxPayConf_pub.py
 *SendSMSConf.py
+log.*
